@@ -1,25 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import About from "./About";
+import ContactUs from "./ContactUs";
+import Posts from "./Posts";
+import {useState, Suspense} from "react";
+import Tabs from "./Tabs";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [tab, setTab] = useState('about')
+    return (
+        <Suspense fallback={<h1>🌀 Loading...!!!</h1>}>
+            <Tabs isActive={tab === 'about'}
+              onClick={() => {
+                setTab('about')
+            }}
+              tab="About"/>
+            <Tabs isActive={tab === 'contact_us'}
+              onClick={() => {
+                setTab('contact_us')
+            }}
+              tab="Contact Us"/>
+            <Tabs isActive={tab === 'posts'}
+              onClick={() => {
+                setTab('posts')
+            }}
+              tab="Posts"/>
+            <hr/>
+            {tab === 'about' && <About/>}
+            {tab === 'contact_us' && <ContactUs/>}
+            {tab === 'posts' && <Posts/>}
+        </Suspense>
+    );
 }
 
 export default App;
